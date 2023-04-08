@@ -18,8 +18,10 @@ refs.countryListEl.style.fontSize = "20px";
 refs.countryListEl.style.color = "#000066";
 
 refs.countryInfoEl.style.display = "flex";
-refs.countryInfoEl.style.alignItems = "center";
-refs.countryInfoEl.style.gap = "10px";
+refs.countryInfoEl.style.flexDirection = "column";
+// refs.countryInfoEl.style.alignItems = "center";
+// refs.countryInfoEl.style.gap = "10px";
+
 refs.inputEl.addEventListener("input", debounce(handlerOnSearch, DEBOUNCE_DELAY));
 
 
@@ -43,19 +45,19 @@ function handlerOnSearch(event) {
         }
     })
         .catch(error => Notiflix.Notify.failure("Oops, there is no country with that name"));
-}
+};
 
 
 
 function createNameCountry(countries) {
-    const markupName = countries.map(element => `<img src="${element.flags.svg}" height="40" width="40"><h1>${element.name.common}</h1>`);
+    const markupName = countries.map(element => `<div style="display:flex; align-items:center; gap:15px"><img src="${element.flags.svg}" height="40" width="40"><h1>${element.name.common}</h1></div>`).join("");
     refs.countryInfoEl.innerHTML = markupName;
     console.log(markupName);
 };
 
 
 function infoAboutCountry(countries) {
-    const markup = countries.map(element => `<li><div style="display:flex; align-items:center; gap:10px;"><img src="${element.flags.svg}" height="40" width="40"><h1 style="color:#0C0261;">${element.name.common}</h1></div></li><li><span class="desc">Capital: ${element.capital}</span></li><span class="desc"><li>Population: ${element.population}</span></li><li><span class="desc">Languages: ${Object.values(element.languages).join(", ")}</span></li>`);
+    const markup = countries.map(element => `<li><div style="display:flex; align-items:center; gap:10px;"><img src="${element.flags.svg}" height="40" width="40"><h1 style="color:#0C0261;">${element.name.common}</h1></div></li><li><span class="desc">Capital: ${element.capital}</span></li><span class="desc"><li>Population: ${element.population}</span></li><li><span class="desc">Languages: ${Object.values(element.languages).join("")}</span></li>`);
     refs.countryListEl.innerHTML = markup;
 };
 
